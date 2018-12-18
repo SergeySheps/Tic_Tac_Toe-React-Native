@@ -44,6 +44,32 @@ const styles = StyleSheet.create({
     fontFamily: 'AvenirNext-DemiBold',
     fontWeight: 'bold',
     textAlign: 'center'
+  },
+  authButton: {
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  authText: {
+    color: 'black',
+    fontSize: 18,
+    fontFamily: 'AvenirNext-DemiBold',
+    textAlign: 'center'
+  },
+  authContainer: {
+    backgroundColor: 'white',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 7,
+    margin: 20,
+    padding: 12
+  },
+  authDivider: {
+    color: 'black',
+    fontSize: 25,
+    fontFamily: 'AvenirNext-DemiBold',
+    textAlign: 'center',
+    marginHorizontal: 10
   }
 });
 

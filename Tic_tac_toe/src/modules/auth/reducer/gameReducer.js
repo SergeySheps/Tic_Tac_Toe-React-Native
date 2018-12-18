@@ -10,7 +10,6 @@ const defaultState = {
   winCombination: null,
   message: null,
   isCross: null,
-  winner: null,
   winCount: {
     userZero: 0,
     userCross: 0

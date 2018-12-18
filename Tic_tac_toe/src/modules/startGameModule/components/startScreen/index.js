@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { View, TextInput, Text, TouchableOpacity, ImageBackground } from 'react-native';
-import Header from '../header';
+import { Button } from 'react-native-elements';
 import * as constants from '../../constants';
 import styles from './styles';
-
 
 class StartScreen extends Component {
   state = { name: '' };
@@ -15,7 +14,6 @@ class StartScreen extends Component {
       <ImageBackground
         source={require('../../../../static/images/Tic_tac_toe_logo.jpg')}
         style={styles.container}>
-        {/* <Header title="Tic Tac Toe" /> */}
         <View style={styles.textContainer}>
           <View>
             <Text style={[styles.textStyles, { paddingRight: 60 }]}>Write</Text>
@@ -40,6 +38,23 @@ class StartScreen extends Component {
           }}>
           <Text style={styles.submitText}>Start</Text>
         </TouchableOpacity>
+        <View style={styles.authContainer}>
+          <TouchableOpacity
+            style={styles.authButton}
+            onPress={() => {
+              navigation.navigate(constants.loginScreen);
+            }}>
+            <Text style={styles.authText}>Login</Text>
+          </TouchableOpacity>
+          <Text style={styles.authDivider}> / </Text>
+          <TouchableOpacity
+            style={styles.authButton}
+            onPress={() => {
+              navigation.navigate(constants.registerScreen);
+            }}>
+            <Text style={styles.authText}>Register</Text>
+          </TouchableOpacity>
+        </View>
       </ImageBackground>
     );
   }

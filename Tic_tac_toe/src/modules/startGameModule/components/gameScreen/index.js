@@ -5,14 +5,14 @@ import { bindActionCreators } from 'redux';
 import SocketIOClient from 'socket.io-client';
 import styles from './styles';
 import * as actionCreators from '../../actions';
-import Config from 'react-native-config'
+import Config from 'react-native-config';
 
 import GameField from '../gameField';
 
 class GameScreen extends Component {
   constructor(props) {
     super(props);
-    console.log(Config,"12312313123")
+
     this.socket = SocketIOClient(Config.SERVER_URL);
   }
 
@@ -34,6 +34,13 @@ class GameScreen extends Component {
       .on('gamePartFinished', (game) => {
         gameStoreUpdate(game);
       })
+      .on('continueGame', () => {
+        const {
+          actions: { gameFieldClear }
+        } = this.props;
+
+        gameFieldClear();
+      })
       .on('gameFinished', (data) => {
         gameStoreUpdate(data);
 
@@ -54,10 +61,13 @@ class GameScreen extends Component {
 
   continueGameHandler = () => {
     const {
-      actions: { gameFieldClear }
+      actions: { gameFieldClear },
+      game
     } = this.props;
 
     gameFieldClear();
+
+    this.socket.emit('continueGame', game._id);
   };
 
   endGameHandler = () => {
@@ -68,6 +78,12 @@ class GameScreen extends Component {
     gameStoreClear();
 
     this.props.navigation.goBack();
+  };
+
+  isWinState = () => {
+    const { isCross, userZero, userCross, winner } = this.props.game;
+
+    return (isCross && winner == userCross) || (!isCross && winner == userZero);
   };
 
   render() {
@@ -100,11 +116,15 @@ class GameScreen extends Component {
               </Text>
             )}
             <Text style={styles.gameLogText}>{game.message && game.message}</Text>
-            {game.message && !game.isFinish && (
-              <TouchableOpacity style={styles.endButton} onPress={this.continueGameHandler}>
-                <Text style={styles.endButtonText}>Continue game</Text>
-              </TouchableOpacity>
-            )}
+            {game.message &&
+              !game.isFinish &&
+              (!this.isWinState() ? (
+                <TouchableOpacity style={styles.endButton} onPress={this.continueGameHandler}>
+                  <Text style={styles.endButtonText}>Continue game</Text>
+                </TouchableOpacity>
+              ) : (
+                <Text>Waiting opponent</Text>
+              ))}
             {game.isFinish && (
               <TouchableOpacity style={styles.endButton} onPress={this.endGameHandler}>
                 <Text style={styles.endButtonText}>Back to start menu</Text>

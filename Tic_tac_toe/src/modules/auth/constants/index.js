@@ -3,8 +3,6 @@ import { Dimensions } from 'react-native';
 export const windowSize = Dimensions.get('window');
 export const startScreen = 'START_SCREEN';
 export const gameScreen = 'GAME_SCREEN';
-export const registerScreen = 'REGISTER_SCREEN';
-export const loginScreen = 'LOGIN_SCREEN';
 
 export const figurePoints = [
   { x: 10, y: 10 },

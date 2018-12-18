@@ -1,6 +1,7 @@
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import * as startGameConstants from './src/modules/startGameModule/constants';
 import { StartScreen, GameScreen } from './src/modules/startGameModule';
+import { RegisterScreen, LoginScreen } from './src/modules/auth';
 
 console.disableYellowBox = true;
 
@@ -22,7 +23,9 @@ export default createAppContainer(
   createStackNavigator(
     {
       [startGameConstants.startScreen]: StartScreen,
-      [startGameConstants.gameScreen]: GameScreen
+      [startGameConstants.gameScreen]: GameScreen,
+      [startGameConstants.registerScreen]: RegisterScreen,
+      [startGameConstants.loginScreen]: LoginScreen
     },
     {
       initialRouteName: startGameConstants.startScreen,

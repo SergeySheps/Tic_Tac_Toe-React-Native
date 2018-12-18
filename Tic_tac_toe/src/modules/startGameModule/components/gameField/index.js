@@ -11,7 +11,7 @@ class GameField extends Component {
     const { changeTurn, field } = this.props;
     const { locationX, locationY } = e.nativeEvent;
 
-    if (e.currentTarget !== e.target){
+    if (e.currentTarget !== e.target) {
       return;
     }
 
@@ -37,7 +37,11 @@ class GameField extends Component {
         <TouchableWithoutFeedback
           onPress={(e) => this.onTouchField(e)}
           disabled={
-            isCross ? game.playerTurn !== game.userCross : game.playerTurn !== game.userZero
+            game.message
+              ? true
+              : isCross
+              ? game.playerTurn !== game.userCross
+              : game.playerTurn !== game.userZero
           }>
           <View style={styles.board}>
             <View style={styles.verticalLine} />
